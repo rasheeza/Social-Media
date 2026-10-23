@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ML NRW Social Editor</title><link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div id="app">
+<header>
+  <strong>Migrantische Linke NRW · Social Editor</strong>
+  <nav><button data-view="editor">Editor</button><button data-view="social">Social Media</button><button data-view="security">Sichere Kommunikation</button></nav>
+  <span></span><button id="exportBtn" class="primary">PNG exportieren</button>
+</header>
+<main>
+<aside class="left">
+<section><h3>Canvas</h3>
+<label>Format</label><select id="format"><option value="4:5">Feed 4:5</option><option value="1:1">Square 1:1</option><option value="9:16">Story 9:16</option></select>
+<label>Hintergrund</label><input type="color" id="canvasColor" value="#111111">
+</section>
+<section><h3>Foto</h3>
+<label class="upload">＋ Eigenes Foto<input id="photoFile" type="file" accept="image/*" hidden></label>
+<div class="twocol"><button id="removePhoto">Entfernen</button><button id="resetPhoto">Reset</button></div>
+<label>Zoom</label><input id="photoZoom" type="range" min="50" max="250" value="100">
+<label>X</label><input id="photoX" type="range" min="-100" max="100" value="0">
+<label>Y</label><input id="photoY" type="range" min="-100" max="100" value="0">
+<label>Helligkeit</label><input id="brightness" type="range" min="20" max="160" value="85">
+<label>Sättigung</label><input id="saturation" type="range" min="0" max="200" value="100">
+<label>Overlay</label><input id="overlay" type="range" min="0" max="100" value="45">
+</section>
+<section><h3>Element hinzufügen</h3>
+<div class="addgrid">
+<button data-add="headline">Headline</button><button data-add="text">Text</button>
+<button data-add="meta">Termin</button><button data-add="source">Quelle</button>
+<button data-add="box">Fläche</button>
+</div></section>
+<section><h3>Ebenen</h3><div id="layers"></div></section>
+</aside>
+
+<div class="stage">
+<div id="canvas"><div id="photo"></div><div id="veil"></div><img id="brandLogo" src="/assets/logos/Migrantische-Linke-NRW.png" alt="ML NRW"></div>
+<div id="socialGuide" class="guidepanel"><div><h1>Social Media · Kurzguide</h1>
+<article><b>Einfach anfangen</b><p>Wähle ein Format, das ohne großen Aufwand regelmäßig machbar ist.</p></article>
+<article><b>Wiederholbare Formate</b><p>Text-on-Screen, Talking Head und Carousel sind einfache Grundformen für einen verlässlichen Workflow.</p></article>
+<article><b>Realistisch planen</b><p>Eine Frequenz wählen, die das Team langfristig gut tragen kann.</p></article>
+<article><b>Aus Resonanz lernen</b><p>Beobachte, welche Inhalte verständlich sind und Interaktion erhalten, und lerne daraus für kommende Beiträge.</p></article>
+<article><b>Gemeinsam arbeiten</b><p>Produktion, Feedback und Veröffentlichung im Team verteilen und sich gegenseitig unterstützen.</p></article>
+<article><b>Quellen selbst prüfen und hinterlegen</b><p>Überprüfbare Aussagen vor der Veröffentlichung selbst gegen belastbare Quellen prüfen. Wenn möglich Primärquellen verwenden und Quelle, Herausgeber, Datum sowie Link oder Dokument nachvollziehbar hinterlegen. Bei mehreren Aussagen die Quellen eindeutig zuordnen. Das Quellenfeld im Editor kann dafür als eigene, frei positionierbare Ebene genutzt werden.</p></article>
+</div></div>
+<div id="securityGuide" class="guidepanel"><div><h1>Sichere Kommunikation · Kurzguide</h1>
+<article><b>Klein anfangen</b><p>Kleine Verbesserungen, die alle mittragen, sind hilfreicher als komplizierte Lösungen, die im Alltag nicht genutzt werden.</p></article>
+<article><b>Schutz passend wählen</b><p>Öffentliche Informationen, normale interne Arbeit und sensible Inhalte brauchen unterschiedliche Schutzmaßnahmen.</p></article>
+<article><b>Sensible Inhalte bewusst behandeln</b><p>Für vertrauliche Kommunikation möglichst Ende-zu-Ende-verschlüsselte Werkzeuge nutzen und persönliche Daten sparsam teilen.</p></article>
+<article><b>Accounts absichern</b><p>Starke Passwörter und Zwei-Faktor-Authentifizierung helfen, Accounts zuverlässig zu schützen.</p></article>
+<article><b>Social Media als öffentlich betrachten</b><p>Vor dem Posten kurz prüfen, ob ein Inhalt auch außerhalb seines vorgesehenen Kontexts stehen könnte.</p></article>
+<article><b>Gemeinsam sicherer werden</b><p>Einheitliche Werkzeuge und gegenseitige Hilfe erleichtern sichere Routinen.</p></article>
+</div></div>
+</div>
+
+<aside class="right">
+<section><h3>Ausgewähltes Element</h3><div id="none">Element auswählen.</div><div id="props" hidden>
+<label>Inhalt</label><textarea id="pText"></textarea>
+<div class="twocol"><div><label>Schrift</label><select id="pFont"><option value="Work Sans">Work Sans</option><option value="Inter">Inter</option></select></div><div><label>Gewicht</label><select id="pWeight"><option>400</option><option>600</option><option selected>800</option><option>900</option></select></div></div>
+<label>Größe</label><input id="pSize" type="range" min="8" max="120" value="42">
+<div class="twocol"><div><label>Textfarbe</label><input id="pColor" type="color" value="#ffffff"></div><div><label>Fläche</label><input id="pBg" type="color" value="#ed1c24"></div></div>
+<label>Flächen-Deckkraft</label><input id="pBgAlpha" type="range" min="0" max="100" value="0">
+<label>Breite</label><input id="pWidth" type="range" min="10" max="100" value="70">
+<label>Innenabstand</label><input id="pPad" type="range" min="0" max="40" value="0">
+<label>Rundung</label><input id="pRadius" type="range" min="0" max="50" value="0">
+<label>Zeilenhöhe</label><input id="pLine" type="range" min="70" max="180" value="100">
+<label>Ausrichtung</label><select id="pAlign"><option>left</option><option>center</option><option>right</option></select>
+<div class="twocol"><button id="duplicate">Duplizieren</button><button id="delete">Löschen</button></div>
+</div></section>
+<section><h3>Logo · fest</h3>
+<p class="note">Das Logo ist nicht löschbar. Asset: <code>/assets/logos/Migrantische-Linke-NRW.png</code></p>
+<label>Position</label><select id="logoPos"><option value="tr">Rechts oben</option><option value="br" selected>Rechts unten</option><option value="tl">Links oben</option><option value="bl">Links unten</option></select>
+<label>Größe</label><input id="logoSize" type="range" min="10" max="45" value="24">
+<label>Rand</label><input id="logoMargin" type="range" min="1" max="12" value="5">
+</section>
+</aside>
+</main></div>
+<script src="/app.js"></script><footer class="appfooter"><span>Urheber: Migrantische Linke NRW</span><span>Admin-Kontakt: <a href="mailto:a.mause@hotmail.de">a.mause@hotmail.de</a></span></footer></body></html>
